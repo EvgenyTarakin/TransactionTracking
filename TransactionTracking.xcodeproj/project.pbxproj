@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B86EF8D2957918700436AF6 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF8C2957918700436AF6 /* UITextFieldExtension.swift */; };
+		1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */; };
 		1B99DC3329576CF200E3152B /* ReplenishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3229576CF200E3152B /* ReplenishViewController.swift */; };
 		1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3529576D1400E3152B /* ReplenishView.swift */; };
 		1BF6ED1A2957478500C31A04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED192957478500C31A04 /* AppDelegate.swift */; };
@@ -15,7 +17,6 @@
 		1BF6ED232957478600C31A04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF6ED222957478600C31A04 /* Assets.xcassets */; };
 		1BF6ED262957478600C31A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF6ED242957478600C31A04 /* LaunchScreen.storyboard */; };
 		1BF6ED33295748DC00C31A04 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED32295748DC00C31A04 /* InfoView.swift */; };
-		1BF6ED36295748F700C31A04 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF6ED35295748F700C31A04 /* SnapKit */; };
 		1BF6ED3929574DAE00C31A04 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED3829574DAE00C31A04 /* UIViewExtension.swift */; };
 		1BF6ED3B29574F2900C31A04 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED3A29574F2900C31A04 /* UILabelExtension.swift */; };
 		1BF9E1A1295766E4005B8AAE /* NewTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9E1A0295766E4005B8AAE /* NewTransactionView.swift */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B86EF8C2957918700436AF6 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		1B99DC3229576CF200E3152B /* ReplenishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishViewController.swift; sourceTree = "<group>"; };
 		1B99DC3529576D1400E3152B /* ReplenishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishView.swift; sourceTree = "<group>"; };
 		1BF6ED162957478500C31A04 /* TransactionTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransactionTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF6ED36295748F700C31A04 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +56,8 @@
 		1B99DC3429576CF700E3152B /* Replenish */ = {
 			isa = PBXGroup;
 			children = (
-				1B99DC3229576CF200E3152B /* ReplenishViewController.swift */,
 				1B99DC3529576D1400E3152B /* ReplenishView.swift */,
+				1B99DC3229576CF200E3152B /* ReplenishViewController.swift */,
 			);
 			path = Replenish;
 			sourceTree = "<group>";
@@ -138,6 +140,8 @@
 			children = (
 				1BF6ED3829574DAE00C31A04 /* UIViewExtension.swift */,
 				1BF6ED3A29574F2900C31A04 /* UILabelExtension.swift */,
+				1B86EF8C2957918700436AF6 /* UITextFieldExtension.swift */,
+				1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -168,7 +172,6 @@
 			);
 			name = TransactionTracking;
 			packageProductDependencies = (
-				1BF6ED35295748F700C31A04 /* SnapKit */,
 			);
 			productName = TransactionTracking;
 			productReference = 1BF6ED162957478500C31A04 /* TransactionTracking.app */;
@@ -199,7 +202,6 @@
 			);
 			mainGroup = 1BF6ED0D2957478400C31A04;
 			packageReferences = (
-				1BF6ED34295748F700C31A04 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 1BF6ED172957478500C31A04 /* Products */;
 			projectDirPath = "";
@@ -232,6 +234,8 @@
 				1BF6ED1E2957478500C31A04 /* InfoViewController.swift in Sources */,
 				1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */,
 				1BF9E1A1295766E4005B8AAE /* NewTransactionView.swift in Sources */,
+				1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */,
+				1B86EF8D2957918700436AF6 /* UITextFieldExtension.swift in Sources */,
 				1BF9E1A3295766F6005B8AAE /* NewTransactionViewController.swift in Sources */,
 				1BF6ED1A2957478500C31A04 /* AppDelegate.swift in Sources */,
 				1BF6ED3B29574F2900C31A04 /* UILabelExtension.swift in Sources */,
@@ -446,25 +450,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1BF6ED34295748F700C31A04 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1BF6ED35295748F700C31A04 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1BF6ED34295748F700C31A04 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1BF6ED0E2957478400C31A04 /* Project object */;
 }

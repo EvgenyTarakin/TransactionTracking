@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 // MARK: - protocol
 protocol InfoViewDelegate: AnyObject {
@@ -19,6 +18,13 @@ class InfoView: UIView {
 //    MARK: - property
     weak var delegate: InfoViewDelegate?
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.setAppTitleLabel("Transaction tracking")
+        
+        return label
+    }()
+    
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [courseLabel, balanceStackView, addTransactionButton])
         stackView.axis = .vertical
@@ -26,9 +32,10 @@ class InfoView: UIView {
         stackView.alignment = .trailing
         stackView.spacing = 16
         
-        courseLabel.snp.makeConstraints {
-            $0.height.equalTo(36)
-        }
+        courseLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            courseLabel.heightAnchor.constraint(equalToConstant: 36)
+        ])
         
         return stackView
     }()
@@ -45,10 +52,11 @@ class InfoView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 16
-        
-        replenishButton.snp.makeConstraints {
-            $0.width.equalTo(36)
-        }
+
+        replenishButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            replenishButton.heightAnchor.constraint(equalToConstant: 36)
+        ])
         
         return stackView
     }()
@@ -71,9 +79,7 @@ class InfoView: UIView {
     
     private lazy var addTransactionButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 24)
-        button.setTitle("Add transaction", for: .normal)
+        button.setAppButton("Add transaction")
         button.addTarget(self, action: #selector(tapAddTransactionButton), for: .touchUpInside)
         
         return button
@@ -99,16 +105,27 @@ class InfoView: UIView {
     private func commonInit() {
         setAppView()
         
+        addSubview(titleLabel)
         addSubview(stackView)
-        stackView.snp.makeConstraints {
-            $0.top.right.equalToSuperview().inset(16)
-        }
-        
         addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(stackView.snp.bottom).inset(-16)
-            $0.bottom.left.right.equalToSuperview()
-        }
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            titleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            titleLabel.heightAnchor.constraint(equalToConstant: 44),
+            
+            stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+
+            tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
     }
     
 //    MARK: - obj-c

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 class InfoViewController: UIViewController {
     
@@ -28,9 +27,13 @@ class InfoViewController: UIViewController {
 //    MARK: - private func
     private func commonInit() {
         view.addSubview(infoView)
-        infoView.snp.makeConstraints {
-            $0.top.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
-        }
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            infoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            infoView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            infoView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
     }
 
 

@@ -7,9 +7,16 @@
 
 import UIKit
 
+// MARK: - protocol
+protocol ReplenishViewControllerDelegate: AnyObject {
+    func setNewValueBalance(_ replenish: Int)
+}
+
 class ReplenishViewController: UIViewController {
     
 //    MARK: - property
+    weak var delegate: ReplenishViewControllerDelegate?
+    
     private lazy var replenishView: ReplenishView = {
         let replenishView = ReplenishView()
         replenishView.delegate = self
@@ -46,7 +53,8 @@ extension ReplenishViewController: ReplenishViewDelegate {
         dismiss(animated: true)
     }
     
-    func didSelectReplenishButton() {
+    func didSelectReplenishButton(_ replenish: String) {
+        delegate?.setNewValueBalance(Int(replenish) ?? 0)
         view.endEditing(true)
         dismiss(animated: true)
     }

@@ -17,7 +17,7 @@ class InfoViewController: UIViewController {
         
         return infoView
     }()
-
+    
 //    MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,7 @@ class InfoViewController: UIViewController {
     
 //    MARK: - private func
     private func commonInit() {
+        
         view.addSubview(infoView)
         infoView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -35,7 +36,6 @@ class InfoViewController: UIViewController {
             infoView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
     }
-
 
 }
 
@@ -47,12 +47,20 @@ extension InfoViewController: InfoViewDelegate {
     
     func didSelectReplenishButton() {
         let controller = ReplenishViewController()
+        controller.delegate = self
         if let sheet = controller.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.preferredCornerRadius = 32
             sheet.largestUndimmedDetentIdentifier = .large
         }
         present(controller, animated: true)
+    }
+}
+
+extension InfoViewController: ReplenishViewControllerDelegate {
+    func setNewValueBalance(_ replenish: Int) {
+        let newBalance = (infoView.balance ?? 0) + replenish
+        infoView.updateBalance(newBalance: newBalance)
     }
 }
 

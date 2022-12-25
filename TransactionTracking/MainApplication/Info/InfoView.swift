@@ -18,6 +18,18 @@ class InfoView: UIView {
 //    MARK: - property
     weak var delegate: InfoViewDelegate?
     
+    var balance: Int? {
+        didSet {
+            balanceLabel.text = "Balance: \(balance ?? 0)"
+        }
+    }
+    
+    var course: Int? {
+        didSet {
+            courseLabel.text = "Bitcoin rate: \(course ?? 0)"
+        }
+    }
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.setAppTitleLabel("Transaction tracking")
@@ -158,8 +170,12 @@ class InfoView: UIView {
     
 //    MARK: - func
     func configurate(balance: Int = 0, course: Int = 0) {
-        balanceLabel.text = "Balance: \(balance)"
-        courseLabel.text = "Bitcoin rate: \(course)"
+        self.balance = balance
+        self.course = course
+    }
+    
+    func updateBalance(newBalance: Int) {
+        self.balance = newBalance
     }
     
 }

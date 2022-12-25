@@ -11,7 +11,7 @@ import UIKit
 protocol ReplenishViewDelegate: AnyObject {
     func didTapedOnView()
     func didSelectCloseButton()
-    func didSelectReplenishButton()
+    func didSelectReplenishButton(_ replenish: String)
 }
 
 class ReplenishView: UIView {
@@ -108,7 +108,9 @@ class ReplenishView: UIView {
     }
     
     @objc private func tapReplenishButton() {
-        delegate?.didSelectReplenishButton()
+        if textField.text != "" && textField.text != nil && textField.text != "0" {
+            delegate?.didSelectReplenishButton(textField.text ?? "0")
+        }
     }
     
 }

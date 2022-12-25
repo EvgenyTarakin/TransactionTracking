@@ -43,7 +43,6 @@ class TransactionCell: UITableViewCell {
     private lazy var amountLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.textColor = .systemRed
         label.font = .systemFont(ofSize: 18)
         
         return label
@@ -74,8 +73,8 @@ class TransactionCell: UITableViewCell {
         addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            mainStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            mainStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             mainStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             mainStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
@@ -84,7 +83,14 @@ class TransactionCell: UITableViewCell {
 //    MARK: - func
     func configurate(transaction: TransactionType, amount: String, time: String) {
         transactionCategoryLabel.text = transaction.title
-        amountLabel.text = "-\(amount)"
+        switch transaction {
+        case .replenish:
+            amountLabel.text = "+\(amount)"
+            amountLabel.textColor = .systemGreen
+        default:
+            amountLabel.text = "-\(amount)"
+            amountLabel.textColor = .systemRed
+        }
         timeLabel.text = time
     }
     

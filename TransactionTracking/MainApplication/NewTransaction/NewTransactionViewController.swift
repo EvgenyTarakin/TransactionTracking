@@ -7,9 +7,16 @@
 
 import UIKit
 
+// MARK: - protocol
+protocol NewTransactionViewControllerDelegate: AnyObject {
+    func addNewTransaction(amount: Int, category: TransactionType)
+}
+
 class NewTransactionViewController: UIViewController {
     
 //    MARK: - property
+    weak var delegate: NewTransactionViewControllerDelegate?
+    
     private lazy var newTransactionView: NewTransactionView = {
         let newTransactionView = NewTransactionView()
         newTransactionView.delegate = self
@@ -45,10 +52,20 @@ extension NewTransactionViewController: NewTransactionViewDelegate {
     }
     
     func didSelectCategoryButton() {
-        
+        present(newTransactionView.alert, animated: true, completion: nil)
     }
     
-    func didSelectTransactionButton() {
-        
+    func didSelectTransactionButton(amount: String, category: String) {
+        let amountInt = Int(amount) ?? 0
+        var typeTransaction: TransactionType = .other
+        switch category {
+        case "Groceries": typeTransaction = .groceries
+        case "Taxi": typeTransaction = .taxi
+        case "Electronic": typeTransaction = .electronic
+        case "Restaurant": typeTransaction = .restaurant
+        default: typeTransaction = .other
+        }
+        delegate?.addNewTransaction(amount: amountInt, category: typeTransaction)
+        navigationController?.popViewController(animated: true)
     }
 }

@@ -11,6 +11,7 @@
 		1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */; };
 		1B86EF9229585C8500436AF6 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF9129585C8500436AF6 /* TransactionCell.swift */; };
 		1B86EF9529585FE200436AF6 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF9429585FE200436AF6 /* TransactionType.swift */; };
+		1B86EF982958A1F600436AF6 /* Transcation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF972958A1F600436AF6 /* Transcation.swift */; };
 		1B99DC3329576CF200E3152B /* ReplenishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3229576CF200E3152B /* ReplenishViewController.swift */; };
 		1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3529576D1400E3152B /* ReplenishView.swift */; };
 		1BF6ED1A2957478500C31A04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED192957478500C31A04 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 		1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		1B86EF9129585C8500436AF6 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		1B86EF9429585FE200436AF6 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		1B86EF972958A1F600436AF6 /* Transcation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcation.swift; sourceTree = "<group>"; };
 		1B99DC3229576CF200E3152B /* ReplenishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishViewController.swift; sourceTree = "<group>"; };
 		1B99DC3529576D1400E3152B /* ReplenishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishView.swift; sourceTree = "<group>"; };
 		1BF6ED162957478500C31A04 /* TransactionTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransactionTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,14 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		1B86EF962958A1E100436AF6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1B86EF972958A1F600436AF6 /* Transcation.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		1B99DC3429576CF700E3152B /* Replenish */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 				1BF6ED2D2957486500C31A04 /* AppDelegates */,
 				1BF6ED3729574D9500C31A04 /* Extensions */,
 				1B86EF9329585FCC00436AF6 /* Enum */,
+				1B86EF962958A1E100436AF6 /* Data */,
 				1BF6ED2E2957488100C31A04 /* StartApplication */,
 				1BF6ED30295748AD00C31A04 /* MainApplication */,
 				1BF6ED2F2957489D00C31A04 /* Assets */,
@@ -254,6 +265,7 @@
 				1BF6ED3929574DAE00C31A04 /* UIViewExtension.swift in Sources */,
 				1BF6ED33295748DC00C31A04 /* InfoView.swift in Sources */,
 				1BF6ED1E2957478500C31A04 /* InfoViewController.swift in Sources */,
+				1B86EF982958A1F600436AF6 /* Transcation.swift in Sources */,
 				1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */,
 				1BF9E1A1295766E4005B8AAE /* NewTransactionView.swift in Sources */,
 				1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */,

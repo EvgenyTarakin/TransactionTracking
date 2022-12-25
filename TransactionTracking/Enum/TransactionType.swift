@@ -14,6 +14,7 @@ enum TransactionType {
     case electronic
     case restaurant
     case other
+    case replenish
     
     var title: String {
         switch self {
@@ -22,6 +23,7 @@ enum TransactionType {
         case .electronic: return "Electronic"
         case .restaurant: return "Restaurant"
         case .other: return "Other"
+        case .replenish: return "Replenish"
         }
     }
 }

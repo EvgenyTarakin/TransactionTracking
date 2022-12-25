@@ -11,7 +11,7 @@ import UIKit
 protocol NewTransactionViewDelegate: AnyObject {
     func tapedOnView()
     func didSelectCategoryButton()
-    func didSelectTransactionButton()
+    func didSelectTransactionButton(amount: String, category: String)
 }
 
 class NewTransactionView: UIView {
@@ -19,6 +19,19 @@ class NewTransactionView: UIView {
 //    MARK: - property
     weak var delegate: NewTransactionViewDelegate?
     private lazy var tap = UITapGestureRecognizer(target: self, action: #selector(tapOnView))
+    
+    lazy var alert: UIAlertController = {
+        let alert = UIAlertController(title: nil, message: "Select category", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Groceries", style: .default, handler: chooseCategory))
+        alert.addAction(UIAlertAction(title: "Taxi", style: .default, handler: chooseCategory))
+        alert.addAction(UIAlertAction(title: "Electronic", style: .default, handler: chooseCategory))
+        alert.addAction(UIAlertAction(title: "Restaurant", style: .default, handler: chooseCategory))
+        alert.addAction(UIAlertAction(title: "Other", style: .default, handler: chooseCategory))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        
+        return alert
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -102,6 +115,11 @@ class NewTransactionView: UIView {
         ])
     }
     
+    private func chooseCategory(_ handler: UIAlertAction) {
+        categoryButton.setTitleColor(.white, for: .normal)
+        categoryButton.setTitle(handler.title, for: .normal)
+    }
+    
 //    MARK: - obj-c
     @objc private func tapOnView() {
         delegate?.tapedOnView()
@@ -112,7 +130,18 @@ class NewTransactionView: UIView {
     }
     
     @objc private func tapTransactionButton() {
-        delegate?.didSelectTransactionButton()
+        if textField.text != "" && textField.text != nil {
+            delegate?.didSelectTransactionButton(amount: textField.text ?? "", category: categoryButton.titleLabel?.text ?? "")
+        }
     }
 
+}
+
+extension NewTransactionView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "0" && (textField.text == "" || textField.text == nil) {
+            return false
+        }
+        return true
+    }
 }

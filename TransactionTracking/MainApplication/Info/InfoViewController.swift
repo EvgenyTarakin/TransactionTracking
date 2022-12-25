@@ -42,6 +42,7 @@ class InfoViewController: UIViewController {
 extension InfoViewController: InfoViewDelegate {
     func didSelectAddTransactionButton() {
         let controller = NewTransactionViewController()
+        controller.delegate = self
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -59,8 +60,29 @@ extension InfoViewController: InfoViewDelegate {
 
 extension InfoViewController: ReplenishViewControllerDelegate {
     func setNewValueBalance(_ replenish: Int) {
+        let date = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YYYY, HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: 10800)
+        let time = formatter.string(from: date as Date)
+        
         let newBalance = (infoView.balance ?? 0) + replenish
         infoView.updateBalance(newBalance: newBalance)
+        infoView.updateData(Transaction(type: .replenish, amount: String(replenish), time: time))
+    }
+}
+
+extension InfoViewController: NewTransactionViewControllerDelegate {
+    func addNewTransaction(amount: Int, category: TransactionType) {
+        let date = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YYYY, HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: 10800)
+        let time = formatter.string(from: date as Date)
+        
+        let newBalance = (infoView.balance ?? 0) - amount
+        infoView.updateBalance(newBalance: newBalance)
+        infoView.updateData(Transaction(type: category, amount: String(amount), time: time))
     }
 }
 

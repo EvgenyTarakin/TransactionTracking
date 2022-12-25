@@ -24,11 +24,13 @@ class InfoView: UIView {
         }
     }
     
-    var course: Int? {
+    private var course: Int? {
         didSet {
             courseLabel.text = "Bitcoin rate: \(course ?? 0)"
         }
     }
+    
+    private var transactionData: [Transaction] = []
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -178,6 +180,11 @@ class InfoView: UIView {
         self.balance = newBalance
     }
     
+    func updateData(_ data: Transaction) {
+        transactionData.insert(data, at: 0)
+        tableView.reloadData()
+    }
+    
 }
 
 extension InfoView: UITableViewDelegate {
@@ -186,12 +193,14 @@ extension InfoView: UITableViewDelegate {
 
 extension InfoView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return transactionData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.reuseIdentifier, for: indexPath) as? TransactionCell else { return UITableViewCell() }
-        cell.configurate(transaction: .other, amount: "500", time: "now")
+        cell.configurate(transaction: transactionData[indexPath.row].type,
+                         amount: transactionData[indexPath.row].amount,
+                         time: transactionData[indexPath.row].time)
         
         return cell 
     }

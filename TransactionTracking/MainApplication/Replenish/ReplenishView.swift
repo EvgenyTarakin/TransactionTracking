@@ -38,6 +38,7 @@ class ReplenishView: UIView {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.setAppTextField("Enter amount")
+        textField.delegate = self
         
         return textField
     }()
@@ -108,9 +109,18 @@ class ReplenishView: UIView {
     }
     
     @objc private func tapReplenishButton() {
-        if textField.text != "" && textField.text != nil && textField.text != "0" {
+        if textField.text != "" && textField.text != nil {
             delegate?.didSelectReplenishButton(textField.text ?? "0")
         }
     }
     
+}
+
+extension ReplenishView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "0" && (textField.text == "" || textField.text == nil) {
+            return false
+        }
+        return true
+    }
 }

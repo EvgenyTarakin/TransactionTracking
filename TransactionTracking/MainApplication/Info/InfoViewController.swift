@@ -10,6 +10,8 @@ import UIKit
 class InfoViewController: UIViewController {
     
 //    MARK: - property
+    private let network = NetworkService()
+    
     private lazy var infoView: InfoView = {
         let infoView = InfoView()
         infoView.delegate = self
@@ -18,22 +20,47 @@ class InfoViewController: UIViewController {
         return infoView
     }()
     
+    private lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        return indicator
+    }()
+    
 //    MARK: - ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        indicator.startAnimating()
+        infoView.alpha = 0.1
+        network.getNewBitcoinCourse { resault in
+            DispatchQueue.main.async {
+                self.infoView.updateBitcoinCourse(resault)
+                self.infoView.alpha = 1
+                self.indicator.stopAnimating()
+            }
+        }
+    }
+    
 //    MARK: - private func
     private func commonInit() {
-        
         view.addSubview(infoView)
+        view.addSubview(indicator)
         infoView.translatesAutoresizingMaskIntoConstraints = false
+        indicator.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             infoView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             infoView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            infoView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+            infoView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            
+            indicator.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            indicator.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            indicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
     }
 

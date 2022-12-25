@@ -24,12 +24,6 @@ class InfoView: UIView {
         }
     }
     
-    private var course: Int? {
-        didSet {
-            courseLabel.text = "Bitcoin rate: \(course ?? 0)"
-        }
-    }
-    
     private var transactionData: [Transaction] = []
     
     private lazy var titleLabel: UILabel = {
@@ -171,9 +165,9 @@ class InfoView: UIView {
     }
     
 //    MARK: - func
-    func configurate(balance: Int = 0, course: Int = 0) {
+    func configurate(balance: Int = 0, course: String = "0") {
         self.balance = balance
-        self.course = course
+        self.courseLabel.text = course
     }
     
     func updateBalance(newBalance: Int) {
@@ -183,6 +177,10 @@ class InfoView: UIView {
     func updateData(_ data: Transaction) {
         transactionData.insert(data, at: 0)
         tableView.reloadData()
+    }
+    
+    func updateBitcoinCourse(_ date: String) {
+        self.courseLabel.text = date
     }
     
 }

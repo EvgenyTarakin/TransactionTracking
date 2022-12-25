@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1B86EF8D2957918700436AF6 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF8C2957918700436AF6 /* UITextFieldExtension.swift */; };
 		1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */; };
+		1B86EF9229585C8500436AF6 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF9129585C8500436AF6 /* TransactionCell.swift */; };
+		1B86EF9529585FE200436AF6 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B86EF9429585FE200436AF6 /* TransactionType.swift */; };
 		1B99DC3329576CF200E3152B /* ReplenishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3229576CF200E3152B /* ReplenishViewController.swift */; };
 		1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99DC3529576D1400E3152B /* ReplenishView.swift */; };
 		1BF6ED1A2957478500C31A04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF6ED192957478500C31A04 /* AppDelegate.swift */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		1B86EF8C2957918700436AF6 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		1B86EF8E29583D6C00436AF6 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		1B86EF9129585C8500436AF6 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		1B86EF9429585FE200436AF6 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		1B99DC3229576CF200E3152B /* ReplenishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishViewController.swift; sourceTree = "<group>"; };
 		1B99DC3529576D1400E3152B /* ReplenishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplenishView.swift; sourceTree = "<group>"; };
 		1BF6ED162957478500C31A04 /* TransactionTracking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransactionTracking.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +57,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B86EF9029585C6300436AF6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1B86EF9129585C8500436AF6 /* TransactionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		1B86EF9329585FCC00436AF6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				1B86EF9429585FE200436AF6 /* TransactionType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		1B99DC3429576CF700E3152B /* Replenish */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +103,7 @@
 			children = (
 				1BF6ED2D2957486500C31A04 /* AppDelegates */,
 				1BF6ED3729574D9500C31A04 /* Extensions */,
+				1B86EF9329585FCC00436AF6 /* Enum */,
 				1BF6ED2E2957488100C31A04 /* StartApplication */,
 				1BF6ED30295748AD00C31A04 /* MainApplication */,
 				1BF6ED2F2957489D00C31A04 /* Assets */,
@@ -129,6 +150,7 @@
 		1BF6ED31295748CB00C31A04 /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				1B86EF9029585C6300436AF6 /* Cell */,
 				1BF6ED32295748DC00C31A04 /* InfoView.swift */,
 				1BF6ED1D2957478500C31A04 /* InfoViewController.swift */,
 			);
@@ -235,9 +257,11 @@
 				1B99DC3629576D1400E3152B /* ReplenishView.swift in Sources */,
 				1BF9E1A1295766E4005B8AAE /* NewTransactionView.swift in Sources */,
 				1B86EF8F29583D6C00436AF6 /* UIButtonExtension.swift in Sources */,
+				1B86EF9529585FE200436AF6 /* TransactionType.swift in Sources */,
 				1B86EF8D2957918700436AF6 /* UITextFieldExtension.swift in Sources */,
 				1BF9E1A3295766F6005B8AAE /* NewTransactionViewController.swift in Sources */,
 				1BF6ED1A2957478500C31A04 /* AppDelegate.swift in Sources */,
+				1B86EF9229585C8500436AF6 /* TransactionCell.swift in Sources */,
 				1BF6ED3B29574F2900C31A04 /* UILabelExtension.swift in Sources */,
 				1B99DC3329576CF200E3152B /* ReplenishViewController.swift in Sources */,
 				1BF6ED1C2957478500C31A04 /* SceneDelegate.swift in Sources */,

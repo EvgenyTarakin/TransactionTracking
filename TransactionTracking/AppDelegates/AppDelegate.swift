@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BackgroundTasks
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,7 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.course", using: nil) { (task) in
+            self.handleAppRefreshTask(task: task as! BGAppRefreshTask)
+        }
         return true
     }
 
@@ -35,6 +38,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return .portrait
     }
 
+    func handleAppRefreshTask(task: BGAppRefreshTask) {
+        task.expirationHandler = {
+            NetworkService.urlsession.invalidateAndCancel()
+        }
+        
+        NetworkService.getNewBitcoinCourse { (course) in
+            NotificationCenter.default.post(name: NSNotification.Name("bitcoin"), object: self, userInfo: ["courseBitcoin" : course])
+            task.setTaskCompleted(success: true)
+        }
+        
+        scheduleBackgroundCourseFetch()
+    }
+    
+    func scheduleBackgroundCourseFetch() {
+        let courseFetchTask = BGAppRefreshTaskRequest(identifier: "com.course")
+        courseFetchTask.earliestBeginDate = Date(timeIntervalSinceNow: 3600)
+        do {
+            try BGTaskScheduler.shared.submit(courseFetchTask)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
 }
 

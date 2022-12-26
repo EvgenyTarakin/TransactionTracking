@@ -10,7 +10,6 @@ import UIKit
 class InfoViewController: UIViewController {
     
 //    MARK: - property
-    private let network = NetworkService()
     private let dataManager = DataManager()
     private let balanceService = BalanceService()
     
@@ -33,13 +32,10 @@ class InfoViewController: UIViewController {
         commonInit()
         infoView.transactionData = dataManager.tableDatas.reversed()
         infoView.balance = balanceService.getBalance()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         indicator.startAnimating()
         infoView.alpha = 0.1
-        network.getNewBitcoinCourse { [weak self] resault in
+        NetworkService.getNewBitcoinCourse { [weak self] resault in
             DispatchQueue.main.async {
                 self?.infoView.updateBitcoinCourse(resault)
                 self?.infoView.alpha = 1
@@ -65,6 +61,9 @@ class InfoViewController: UIViewController {
             indicator.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             indicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setCourse(_:)), name: NSNotification.Name("courseBitcoin"), object: nil)
+
     }
     
     private func getTime() -> String {
@@ -76,9 +75,15 @@ class InfoViewController: UIViewController {
         
         return time
     }
+    
+//    MARK: - obj-c
+    @objc private func setCourse(_ notification: NSNotification) {
+        infoView.updateBitcoinCourse(notification.userInfo?["courseBitcoin"] as? String ?? "")
+    }
 
 }
 
+// MARK: - extension
 extension InfoViewController: InfoViewDelegate {
     func didSelectAddTransactionButton() {
         let controller = NewTransactionViewController()

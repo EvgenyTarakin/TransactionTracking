@@ -9,12 +9,11 @@ import Foundation
 
 class NetworkService {
     
-    static let shared = NetworkService()
-    private let url = "https://api.coindesk.com/v1/bpi/currentprice.json"
+    static let urlsession = URLSession(configuration: .default)
     
-    func getNewBitcoinCourse(complition: @escaping(String) -> ()) {
-        guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+    static func getNewBitcoinCourse(complition: @escaping(String) -> ()) {
+        guard let url = URL(string: "https://api.coindesk.com/v1/bpi/currentprice.json") else { return }
+        NetworkService.urlsession.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else { return }
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]

@@ -16,7 +16,7 @@ class DataManager: Hashable {
         let fetchRequest: NSFetchRequest<TableData> = TableData.fetchRequest()
 
         do {
-            return try context.fetch(fetchRequest)
+            return try context.fetch(fetchRequest).reversed()
         } catch let error as NSError {
             print(error.localizedDescription)
             return []

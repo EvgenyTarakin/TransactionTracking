@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class InfoViewController: UIViewController {
     
@@ -30,18 +31,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
-        infoView.transactionData = dataManager.tableDatas.reversed()
-        infoView.balance = balanceService.getBalance()
-        
-        indicator.startAnimating()
-        infoView.alpha = 0.1
-        NetworkService.getNewBitcoinCourse { [weak self] resault in
-            DispatchQueue.main.async {
-                self?.infoView.updateBitcoinCourse(resault)
-                self?.infoView.alpha = 1
-                self?.indicator.stopAnimating()
-            }
-        }
+        loadData()
     }
     
 //    MARK: - private func
@@ -64,6 +54,21 @@ class InfoViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(setCourse(_:)), name: NSNotification.Name("courseBitcoin"), object: nil)
 
+    }
+    
+    private func loadData() {
+        infoView.transactionData = dataManager.tableDatas
+        infoView.balance = balanceService.getBalance()
+        
+        indicator.startAnimating()
+        infoView.alpha = 0.1
+        NetworkService.getNewBitcoinCourse { [weak self] resault in
+            DispatchQueue.main.async {
+                self?.infoView.updateBitcoinCourse(resault)
+                self?.infoView.alpha = 1
+                self?.indicator.stopAnimating()
+            }
+        }
     }
     
     private func getTime() -> String {
@@ -109,7 +114,7 @@ extension InfoViewController: ReplenishViewControllerDelegate {
         infoView.updateBalance(newBalance: balanceService.getBalance())
 
         dataManager.saveData(type: TransactionType.replenish.title, amount: String(replenish), time: getTime())
-        infoView.transactionData = dataManager.tableDatas.reversed()
+        infoView.transactionData = dataManager.tableDatas
         infoView.updateData()
     }
 }
@@ -120,7 +125,7 @@ extension InfoViewController: NewTransactionViewControllerDelegate {
         infoView.updateBalance(newBalance: balanceService.getBalance())
 
         dataManager.saveData(type: category.title, amount: String(amount), time: getTime())
-        infoView.transactionData = dataManager.tableDatas.reversed()
+        infoView.transactionData = dataManager.tableDatas
         infoView.updateData()
     }
 }

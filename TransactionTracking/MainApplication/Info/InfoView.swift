@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 // MARK: - protocol
 protocol InfoViewDelegate: AnyObject {
@@ -18,6 +19,7 @@ class InfoView: UIView {
 //    MARK: - property
     weak var delegate: InfoViewDelegate?
     var transactionData: [TableData] = []
+    
     var balance: String = "" {
         didSet {
             balanceLabel.text = "Balance: \(balance)"
@@ -100,7 +102,7 @@ class InfoView: UIView {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.showsVerticalScrollIndicator = false
+//        tableView.showsVerticalScrollIndicator = false
         tableView.rowHeight = 72
         tableView.register(TransactionCell.self, forCellReuseIdentifier: TransactionCell.reuseIdentifier)
         tableView.delegate = self

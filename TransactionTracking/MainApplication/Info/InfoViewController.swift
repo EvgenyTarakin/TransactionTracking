@@ -11,11 +11,12 @@ class InfoViewController: UIViewController {
     
 //    MARK: - property
     private let network = NetworkService()
+    private let dataManager = DataManager()
+    private let balanceService = BalanceService()
     
     private lazy var infoView: InfoView = {
         let infoView = InfoView()
         infoView.delegate = self
-        infoView.configurate()
         
         return infoView
     }()
@@ -30,17 +31,19 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         commonInit()
+        infoView.transactionData = dataManager.tableDatas.reversed()
+        infoView.balance = balanceService.getBalance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         indicator.startAnimating()
         infoView.alpha = 0.1
-        network.getNewBitcoinCourse { resault in
+        network.getNewBitcoinCourse { [weak self] resault in
             DispatchQueue.main.async {
-                self.infoView.updateBitcoinCourse(resault)
-                self.infoView.alpha = 1
-                self.indicator.stopAnimating()
+                self?.infoView.updateBitcoinCourse(resault)
+                self?.infoView.alpha = 1
+                self?.indicator.stopAnimating()
             }
         }
     }
@@ -62,6 +65,16 @@ class InfoViewController: UIViewController {
             indicator.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             indicator.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
+    }
+    
+    private func getTime() -> String {
+        let date = NSDate()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YYYY, HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: 10800)
+        let time = formatter.string(from: date as Date)
+        
+        return time
     }
 
 }
@@ -87,29 +100,23 @@ extension InfoViewController: InfoViewDelegate {
 
 extension InfoViewController: ReplenishViewControllerDelegate {
     func setNewValueBalance(_ replenish: Int) {
-        let date = NSDate()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.YYYY, HH:mm"
-        formatter.timeZone = TimeZone(secondsFromGMT: 10800)
-        let time = formatter.string(from: date as Date)
-        
-        let newBalance = (infoView.balance ?? 0) + replenish
-        infoView.updateBalance(newBalance: newBalance)
-        infoView.updateData(Transaction(type: .replenish, amount: String(replenish), time: time))
+        balanceService.changeBalance(amount: replenish, type: .replenish)
+        infoView.updateBalance(newBalance: balanceService.getBalance())
+
+        dataManager.saveData(type: TransactionType.replenish.title, amount: String(replenish), time: getTime())
+        infoView.transactionData = dataManager.tableDatas.reversed()
+        infoView.updateData()
     }
 }
 
 extension InfoViewController: NewTransactionViewControllerDelegate {
     func addNewTransaction(amount: Int, category: TransactionType) {
-        let date = NSDate()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.YYYY, HH:mm"
-        formatter.timeZone = TimeZone(secondsFromGMT: 10800)
-        let time = formatter.string(from: date as Date)
-        
-        let newBalance = (infoView.balance ?? 0) - amount
-        infoView.updateBalance(newBalance: newBalance)
-        infoView.updateData(Transaction(type: category, amount: String(amount), time: time))
+        balanceService.changeBalance(amount: amount, type: category)
+        infoView.updateBalance(newBalance: balanceService.getBalance())
+
+        dataManager.saveData(type: category.title, amount: String(amount), time: getTime())
+        infoView.transactionData = dataManager.tableDatas.reversed()
+        infoView.updateData()
     }
 }
 

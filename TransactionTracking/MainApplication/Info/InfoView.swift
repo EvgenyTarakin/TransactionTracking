@@ -17,15 +17,13 @@ class InfoView: UIView {
     
 //    MARK: - property
     weak var delegate: InfoViewDelegate?
-    
-    var balance: Int? {
+    var transactionData: [TableData] = []
+    var balance: String = "" {
         didSet {
-            balanceLabel.text = "Balance: \(balance ?? 0)"
+            balanceLabel.text = "Balance: \(balance)"
         }
     }
-    
-    private var transactionData: [Transaction] = []
-    
+            
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.setAppTitleLabel("Transaction tracking")
@@ -165,17 +163,11 @@ class InfoView: UIView {
     }
     
 //    MARK: - func
-    func configurate(balance: Int = 0, course: String = "0") {
-        self.balance = balance
-        self.courseLabel.text = course
-    }
-    
-    func updateBalance(newBalance: Int) {
+    func updateBalance(newBalance: String) {
         self.balance = newBalance
     }
     
-    func updateData(_ data: Transaction) {
-        transactionData.insert(data, at: 0)
+    func updateData() {        
         tableView.reloadData()
     }
     
@@ -185,9 +177,7 @@ class InfoView: UIView {
     
 }
 
-extension InfoView: UITableViewDelegate {
-    
-}
+extension InfoView: UITableViewDelegate {}
 
 extension InfoView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,9 +186,9 @@ extension InfoView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.reuseIdentifier, for: indexPath) as? TransactionCell else { return UITableViewCell() }
-        cell.configurate(transaction: transactionData[indexPath.row].type,
-                         amount: transactionData[indexPath.row].amount,
-                         time: transactionData[indexPath.row].time)
+        cell.configurate(transaction: transactionData[indexPath.row].type ?? "",
+                         amount: transactionData[indexPath.row].amount ?? "",
+                         time: transactionData[indexPath.row].time ?? "")
         
         return cell 
     }

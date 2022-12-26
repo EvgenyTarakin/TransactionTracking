@@ -81,10 +81,10 @@ class TransactionCell: UITableViewCell {
     }
     
 //    MARK: - func
-    func configurate(transaction: TransactionType, amount: String, time: String) {
-        transactionCategoryLabel.text = transaction.title
+    func configurate(transaction: String, amount: String, time: String) {
+        transactionCategoryLabel.text = transaction
         switch transaction {
-        case .replenish:
+        case "Replenish":
             amountLabel.text = "+\(amount)"
             amountLabel.textColor = .systemGreen
         default:

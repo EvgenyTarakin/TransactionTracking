@@ -10,18 +10,7 @@ import CoreData
 
 class DataManager: Hashable {
     
-    private let context = CoreDataManager().persistentContainer.viewContext
-
-    var tableDatas: [TableData] {
-        let fetchRequest: NSFetchRequest<TableData> = TableData.fetchRequest()
-
-        do {
-            return try context.fetch(fetchRequest).reversed()
-        } catch let error as NSError {
-            print(error.localizedDescription)
-            return []
-        }
-    }
+    private let context = CoreDataManager.persistentContainer.viewContext
     
     var balance: [Balance] {
         let fetchRequest: NSFetchRequest<Balance> = Balance.fetchRequest()
@@ -34,27 +23,9 @@ class DataManager: Hashable {
         }
     }
     
-    func saveData(type: String, amount: String, time: String) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "TableData", in: context) else {
-            return
-        }
-        
-        let history = TableData(entity: entity, insertInto: context)
-        history.type = type
-        history.amount = amount
-        history.time = time
-        
-        do {
-            try context.save()
-        } catch let error as NSError {
-            print(error.localizedDescription)
-        }
-    }
-    
     func saveBalance(amount: Double) {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Balance", in: context) else {
-            return
-        }
+        guard let entity = NSEntityDescription.entity(forEntityName: "Balance", in: context) else { return }
+        
         let balance = Balance(entity: entity, insertInto: context)
         balance.amount = amount
         

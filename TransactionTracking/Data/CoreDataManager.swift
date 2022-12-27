@@ -10,7 +10,7 @@ import CoreData
 
 class CoreDataManager {
 
-    lazy var persistentContainer: NSPersistentContainer = {
+    static var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -21,11 +21,11 @@ class CoreDataManager {
     }()
 
     lazy var viewContext: NSManagedObjectContext = {
-        return persistentContainer.viewContext
+        return CoreDataManager.persistentContainer.viewContext
     }()
 
     func saveContext() {
-        let context = persistentContainer.viewContext
+        let context = CoreDataManager.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()

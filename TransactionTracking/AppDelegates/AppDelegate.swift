@@ -12,7 +12,6 @@ import BackgroundTasks
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.course", using: nil) { (task) in
             self.handleAppRefreshTask(task: task as! BGAppRefreshTask)

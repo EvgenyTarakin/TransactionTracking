@@ -15,12 +15,11 @@ class InfoViewController: UIViewController {
     private let balanceService = BalanceService()
     private let coreDataManager = CoreDataManager()
     private var rightData = [TableData]()
+//    private var endAddOperation = false
     
     private lazy var fetchResaultController: NSFetchedResultsController<TableData> = {
-        let fetchRequest: NSFetchRequest<TableData> = TableData.fetchRequest()
+        let fetchRequest = NSFetchRequest<TableData>(entityName: "TableData")
         let sortDescriptor = NSSortDescriptor(key: "time", ascending: false)
-        let entity = NSEntityDescription.entity(forEntityName: "TableData", in: self.coreDataManager.viewContext)
-        fetchRequest.entity = entity
         fetchRequest.fetchBatchSize = 20
         fetchRequest.sortDescriptors = [sortDescriptor]
         
@@ -101,7 +100,6 @@ class InfoViewController: UIViewController {
         ])
         
         NotificationCenter.default.addObserver(self, selector: #selector(setCourse(_:)), name: NSNotification.Name("courseBitcoin"), object: nil)
-
     }
     
     private func loadTableData() {
@@ -219,6 +217,37 @@ extension InfoViewController: UITableViewDataSource {
         
         return cell
     }
+
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if !endAddOperation {
+//        let startDataCount = fetchResaultController.fetchRequest.fetchBatchSize
+//        let allDataCount = fetchResaultController.fetchedObjects?.count ?? 0
+//            if indexPath.row == startDataCount / 2 {
+//                if (20 <= startDataCount) && (startDataCount <= allDataCount) {
+//                    let lastIndex = tableView.numberOfRows(inSection: 0)
+//                    fetchResaultController.fetchRequest.fetchBatchSize += 20
+//                    var indexes: [IndexPath] = []
+//                    for index in lastIndex - 1 ... startDataCount - 1 {
+//                        indexes.append(IndexPath(row: index, section: 0))
+//                    }
+//                    tableView.insertRows(at: indexes, with: .fade)
+//                    tableView.reloadData()
+//
+//                } else if (startDataCount > allDataCount) && ((startDataCount - 21) < allDataCount)  {
+//                    let lastIndex = startDataCount - 21
+//                    let count = allDataCount - lastIndex
+//                    endAddOperation = true
+//                    fetchResaultController.fetchRequest.fetchBatchSize += count
+//                    var indexes: [IndexPath] = []
+//                    for index in lastIndex - 1 ... fetchResaultController.fetchRequest.fetchBatchSize - 1 {
+//                        indexes.append(IndexPath(row: index, section: 0))
+//                    }
+//                    tableView.insertRows(at: indexes, with: .fade)
+//                    tableView.reloadData()
+//                }
+//            }
+//        }
+//    }
     
     func configureCell(_ cell: TransactionCell, at indexPath: IndexPath) {
         let data = fetchResaultController.object(at: indexPath)
@@ -242,6 +271,5 @@ extension InfoViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
-    
 }
 
